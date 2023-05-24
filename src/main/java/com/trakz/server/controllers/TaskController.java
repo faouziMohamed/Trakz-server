@@ -36,6 +36,7 @@ public class TaskController {
       ? taskService.getAllTasksByFolderId(byFolderId, pageable)
       : taskService.getAllTasks(pageable);
     PagedResult tasks = PagedResult.toDtoModel(tasksPaged);
+    System.out.println(tasks);
     return ResponseEntity.ok(
       HttpUtils.buildResponse(tasks, "Task list retrieved", OK)
     );
