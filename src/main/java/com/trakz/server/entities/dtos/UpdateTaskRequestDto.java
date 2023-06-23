@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @Builder
@@ -22,6 +24,12 @@ public class UpdateTaskRequestDto extends AbstractBaseDtos<Task> {
   private Recurrence recurrence = null;
   private int recurrenceEvery = 0;
   private String recurrenceUnit = null;
+  private LocalDateTime dueDate = null;
+
+  @Override
+  public Task toEntity() {
+    return UpdateTaskRequestDto.toEntityModel(this);
+  }
 
   public static Task toEntityModel(UpdateTaskRequestDto dto) {
     return Task.builder()
@@ -34,11 +42,7 @@ public class UpdateTaskRequestDto extends AbstractBaseDtos<Task> {
       .recurrence(dto.recurrence)
       .recurrenceEvery(dto.recurrenceEvery)
       .recurrenceUnit(dto.recurrenceUnit)
+      .dueDate(dto.dueDate)
       .build();
-  }
-
-  @Override
-  public Task toEntity() {
-    return UpdateTaskRequestDto.toEntityModel(this);
   }
 }

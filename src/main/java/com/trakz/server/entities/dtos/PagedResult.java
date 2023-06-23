@@ -3,6 +3,7 @@ package com.trakz.server.entities.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public class PagedResult {
   private Integer pageSize;
   private String[] sort;
 
-  public static PagedResult toDtoModel(Page<?> items) {
+  public static PagedResult toDtoModel(@NonNull Page<?> items) {
+    if (items.getContent().isEmpty()) {
+      items = Page.empty();
+    }
     return PagedResult.builder()
       .items(items.getContent())
       .totalItems(items.getTotalElements())

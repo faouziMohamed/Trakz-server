@@ -1,11 +1,6 @@
 package com.trakz.server.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,12 +18,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @DynamicUpdate
-public class TaskNote {
+public class Note {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(name = "note", nullable = false)
-  private String note;
+  @Column(name = "content", nullable = false)
+  private String content;
 
   @Column(name = "created_at")
   @CreationTimestamp

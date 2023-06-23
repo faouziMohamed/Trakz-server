@@ -1,12 +1,12 @@
 package com.trakz.server.services;
 
-import com.trakz.server.entities.TaskNote;
+import com.trakz.server.entities.Note;
 
 public interface TaskNoteService {
 
-  TaskNote updateTaskNoteContent(Long id, TaskNote taskNote);
+  Note updateTaskNoteContent(Long id, Note note);
 
-  TaskNote getTaskNoteById(Long id);
+  Note getTaskNoteById(Long id);
 
-  TaskNote deleteTaskNoteById(Long id);
+  Note deleteTaskNoteById(Long id);
 }

@@ -20,4 +20,6 @@ public interface TaskService {
   Boolean existsById(Long id);
 
   Boolean setTaskNoteId(Long taskId, Long taskNoteId);
+
+  Page<Task> getAllTasksByCriteria(String folderName, Pageable pageable);
 }

@@ -1,6 +1,6 @@
 package com.trakz.server.services.implementation;
 
-import com.trakz.server.entities.TaskNote;
+import com.trakz.server.entities.Note;
 import com.trakz.server.repositories.TaskNoteRepository;
 import com.trakz.server.services.TaskNoteService;
 import jakarta.transaction.Transactional;
@@ -16,29 +16,29 @@ public class TaskNoteServiceImpl implements TaskNoteService {
   final private TaskNoteRepository taskNoteRepository;
 
   @Override
-  public TaskNote updateTaskNoteContent(Long id, TaskNote taskNote) {
-    String content = taskNote.getNote();
-    TaskNote taskNoteToUpdate = taskNoteRepository.findById(id).orElse(null);
-    if (taskNoteToUpdate == null) return null;
-    if (content != null && !content.equals(taskNoteToUpdate.getNote())) {
-      taskNoteToUpdate.setNote(content);
+  public Note updateTaskNoteContent(Long id, Note note) {
+    String content = note.getContent();
+    Note noteToUpdate = taskNoteRepository.findById(id).orElse(null);
+    if (noteToUpdate == null) return null;
+    if (content != null && !content.equals(noteToUpdate.getContent())) {
+      noteToUpdate.setContent(content);
     }
-    log.info("Updating task note with id {}", taskNoteToUpdate.getId());
-    return taskNoteRepository.save(taskNoteToUpdate);
+    log.info("Updating task note with id {}", noteToUpdate.getId());
+    return taskNoteRepository.save(noteToUpdate);
   }
 
   @Override
-  public TaskNote getTaskNoteById(Long id) {
+  public Note getTaskNoteById(Long id) {
     log.info("Fetching task note with id {}", id);
     return taskNoteRepository.findById(id).orElse(null);
   }
 
   @Override
-  public TaskNote deleteTaskNoteById(Long id) {
+  public Note deleteTaskNoteById(Long id) {
     log.info("Deleting task note with id {}", id);
-    TaskNote taskNote = taskNoteRepository.findById(id).orElse(null);
-    if (taskNote == null) return null;
+    Note note = taskNoteRepository.findById(id).orElse(null);
+    if (note == null) return null;
     taskNoteRepository.deleteById(id);
-    return taskNote;
+    return note;
   }
 }

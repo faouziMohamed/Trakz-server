@@ -15,4 +15,6 @@ public interface TaskStepService {
 
   Boolean deleteTaskStepById(Long id);
 
+  void deleteAllByTaskId(Long taskId);
+
 }

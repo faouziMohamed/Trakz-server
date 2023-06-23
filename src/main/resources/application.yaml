@@ -14,7 +14,7 @@ spring:
   application:
     name: trakz-server
   datasource:
-    url: jdbc:mysql://165.22.73.83:3307/trakz
+    url: jdbc:mysql://196.119.180.26:3307/trakz
     username: mfaouzi
     password: 1234@5
   jpa:
@@ -28,5 +28,5 @@ spring:
   data:
     web:
       pageable:
-        default-page-size: 30
-        max-page-size: 100
+        default-page-size: 100
+        max-page-size: 250

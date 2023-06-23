@@ -25,14 +25,25 @@ public class TrakzServerApplication {
     return args -> {
       // Add default folders if none exist
       // check if tasks folder exists in database, if not create it
-      var isTasksFolderPresent = folderRepository.findByName("Tasks");
+      var isTasksFolderPresent = folderRepository.findByNameIgnoreCase("Projects");
+      if (isTasksFolderPresent == null) {
+        // create tasks folder
+        folderRepository.save(Folder.builder()
+          .name("Projects")
+          .description("An example of a folder that contains for task outside the main folder (Tasks)")
+          .build());
+      }
+
+      // check if tasks folder exists in database, if not create it
+      isTasksFolderPresent = folderRepository.findByNameIgnoreCase("Tasks");
       if (isTasksFolderPresent == null) {
         // create tasks folder
         folderRepository.save(Folder.builder()
           .name("Tasks")
-          .description("Default folder for tasks")
+          .description("Default folder that contains all tasks that are not in a folder")
           .build());
       }
+
       // check if projects folder exists in database, if not create it
       var folders = folderRepository.findAll();
       folders.forEach(System.out::println);

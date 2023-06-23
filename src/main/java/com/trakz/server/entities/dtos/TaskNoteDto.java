@@ -1,6 +1,6 @@
 package com.trakz.server.entities.dtos;
 
-import com.trakz.server.entities.TaskNote;
+import com.trakz.server.entities.Note;
 import com.trakz.server.utils.contracts.AbstractBaseDtos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,17 +11,17 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @Builder
 @Data
-public class TaskNoteDto extends AbstractBaseDtos<TaskNote> {
+public class TaskNoteDto extends AbstractBaseDtos<Note> {
   private String note;
 
-  public static TaskNote toTaskEntity(TaskNoteDto dto) {
-    return TaskNote.builder()
-      .note(dto.note)
-      .build();
+  @Override
+  public Note toEntity() {
+    return TaskNoteDto.toTaskEntity(this);
   }
 
-  @Override
-  public TaskNote toEntity() {
-    return TaskNoteDto.toTaskEntity(this);
+  public static Note toTaskEntity(TaskNoteDto dto) {
+    return Note.builder()
+      .content(dto.note)
+      .build();
   }
 }

@@ -1,5 +1,6 @@
 package com.trakz.server.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.trakz.server.utils.enumeration.Recurrence;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("DefaultAnnotationParam")
@@ -23,56 +25,65 @@ import java.util.List;
 @Builder
 @DynamicUpdate
 public class Task {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    // foreign key to folders table
-    // a folder can have many tasks but a task can only belong to one folder
-    @Column(name = "folder_id", nullable = false)
-    private Long folderId;
+  // a folder can have many tasks but a task can only belong to one folder
+  @Column(name = "folder_id", nullable = false)
+  private Long folderId;
 
-    @Column(name = "due_date")
-    private LocalDateTime dueDate = null;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "folder_id", insertable = false, updatable = false)
+  @JsonIgnore
+  private Folder folder;
 
-    @Column(nullable = false)
-    private String content;
+  @Column(name = "due_date")
+  private LocalDateTime dueDate = null;
 
-    @Column(nullable = true)
-    @JsonProperty("isInMyDay")
-    private boolean isInMyDay = false;
+  @Column(nullable = false)
+  private String content;
 
-    @Column(nullable = true)
-    @JsonProperty("isImportant")
-    private boolean isImportant = false;
+  @Column(nullable = true)
+  @JsonProperty("isInMyDay")
+  private boolean isInMyDay = false;
 
-    @Column(nullable = true)
-    @JsonProperty("isCompleted")
-    private boolean isCompleted = false;
+  @Column(nullable = true)
+  @JsonProperty("isImportant")
+  private boolean isImportant = false;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "task_id", referencedColumnName = "id", nullable = true)
-    private List<TaskStep> steps;
+  @Column(nullable = true)
+  @JsonProperty("isCompleted")
+  private boolean isCompleted = false;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "recurrence", nullable = true)
-    private Recurrence recurrence;
+  @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @JoinColumn(name = "task_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+  private List<TaskStep> steps = new ArrayList<>();
 
-    @Column(name = "recurrence_every", nullable = true)
-    private int recurrenceEvery = 0;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "recurrence", nullable = true)
+  private Recurrence recurrence;
 
-    @Column(name = "recurrence_unit", nullable = true)
-    private String recurrenceUnit;
+  @Column(name = "recurrence_every", nullable = true)
+  private int recurrenceEvery = 0;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "note_id", referencedColumnName = "id", nullable = true)
-    private TaskNote taskNote;
+  @Column(name = "recurrence_unit", nullable = true)
+  private String recurrenceUnit;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+  @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @JoinColumn(name = "note_id", referencedColumnName = "id", nullable = true)
+  private Note note;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+  @Column(name = "created_at")
+  @CreationTimestamp
+  private LocalDateTime createdAt;
+
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt;
+
+  @JsonProperty("folderName")
+  public String getFolderName() {
+    return folder != null ? folder.getName() : null;
+  }
 }

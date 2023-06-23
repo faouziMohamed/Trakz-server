@@ -55,19 +55,24 @@ public class TaskStepServiceImpl implements TaskStepService {
   @Override
   public Page<TaskStep> getTaskStepsByTaskId(Long taskId, Pageable pageable) {
     log.info("Fetching task steps for task with id {}", taskId);
-//    return taskStepRepository.findAllByTaskId(taskId, pageable);
-    return null;
+    return taskStepRepository.findAllByTaskId(taskId, pageable);
   }
 
   @Override
-  public Boolean deleteTaskStepById(Long id) {
-    log.info("Deleting task step with id {}", id);
-    TaskStep taskStep = taskStepRepository.findById(id).orElse(null);
+  public Boolean deleteTaskStepById(Long stepId) {
+    log.info("Deleting task step with stepId {}", stepId);
+    TaskStep taskStep = taskStepRepository.findById(stepId).orElse(null);
     if (taskStep == null) {
-      log.error("Task step with id {} not found", id);
+      log.error("Task step with stepId {} not found", stepId);
       return false;
     }
-    taskStepRepository.deleteById(id);
+    taskStepRepository.deleteById(stepId);
     return true;
+  }
+
+  @Override
+  public void deleteAllByTaskId(Long taskId) {
+    log.info("Deleting all task steps for task with id {}", taskId);
+    taskStepRepository.deleteByTaskId(taskId);
   }
 }
