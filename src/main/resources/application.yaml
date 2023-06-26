@@ -14,7 +14,7 @@ spring:
   application:
     name: trakz-server
   datasource:
-    url: jdbc:mysql://196.119.180.26:3307/trakz
+    url: jdbc:mysql://197.153.114.138:3307/trakz
     username: mfaouzi
     password: 1234@5
   jpa:
