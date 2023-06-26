@@ -10,8 +10,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.trakz</groupId>
-    <artifactId>Trakz-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>trakz-server</artifactId>
+    <version>1.0.0</version>
     <name>Trakz-server</name>
     <description>Trakz-server</description>
     <properties>
