@@ -40,7 +40,7 @@ jobs:
         password: ${{ secrets.AzureAppService_ContainerPassword_516a424534d547df94271a83ba062de4 }}
       
     - name: List files built
-      run: ls -lR target
+      run: ls -lR
       
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
