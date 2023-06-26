@@ -42,7 +42,7 @@ jobs:
         with:
           push: true
           context: .
-          tags: faouzimohamed/trakz:${{ github.sha }}
+          tags: index.docker.io/faouzimohamed/trakz:${{ github.sha }}
           file: ./Dockerfile
 
   deploy:
@@ -60,4 +60,4 @@ jobs:
           app-name: 'trakz'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_6af75ec67d294fd89c1d6f1a8d3be842 }}
-          images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_72a3072939d446d5861cbd010c220571 }}/faouzimohamed/trakz:${{ github.sha }}'
+          images: 'index.docker.io/faouzimohamed/trakz:${{ github.sha }}'
