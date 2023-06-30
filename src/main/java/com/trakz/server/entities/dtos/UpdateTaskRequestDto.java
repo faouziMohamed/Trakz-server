@@ -1,5 +1,6 @@
 package com.trakz.server.entities.dtos;
 
+import com.trakz.server.entities.Note;
 import com.trakz.server.entities.Task;
 import com.trakz.server.utils.contracts.AbstractBaseDtos;
 import com.trakz.server.utils.enumeration.Recurrence;
@@ -25,6 +26,7 @@ public class UpdateTaskRequestDto extends AbstractBaseDtos<Task> {
   private int recurrenceEvery = 0;
   private String recurrenceUnit = null;
   private LocalDateTime dueDate = null;
+  private Note note = null;
 
   @Override
   public Task toEntity() {
@@ -43,6 +45,7 @@ public class UpdateTaskRequestDto extends AbstractBaseDtos<Task> {
       .recurrenceEvery(dto.recurrenceEvery)
       .recurrenceUnit(dto.recurrenceUnit)
       .dueDate(dto.dueDate)
+      .note(dto.note)
       .build();
   }
 }
